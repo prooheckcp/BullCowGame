@@ -1,0 +1,9 @@
+{
+	"files.exclude": {
+		"C:/Users/user/Documents/CPPlearn/BullCowGame/.git": true,
+		"C:/Users/user/Documents/CPPlearn/BullCowGame/.vscode": true,
+		"C:/Users/user/Documents/CPPlearn/BullCowGame/Content": true,
+		"C:/Users/user/Documents/CPPlearn/BullCowGame/Intermediate": true,
+		"C:/Users/user/Documents/CPPlearn/BullCowGame/Saved": true
+	}
+}
