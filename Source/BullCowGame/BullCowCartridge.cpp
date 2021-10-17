@@ -3,40 +3,52 @@
 #include "Math/UnrealMathUtility.h"
 
 //Constants||
-const TArray<FString> ListOfWords {"cake", "pen", "red", "black", "water"};
-const FString WINNING_MESSAGE = TEXT("You found the secret word!");
-const FString LOSING_MESSAGE = TEXT("You lost!");
-//_________||
-
-//Variables||
-int amountOfLives = 10;
+const int LIVE_AMOUNT = 5;
 //_________||
 
 //Helper methods||
 void UBullCowCartridge::WinningMessage(){
-    PrintLine(WINNING_MESSAGE);
+    PrintLine(TEXT("You found the secret word!"));
 }
 
 void UBullCowCartridge::LosingMessage(){
-    PrintLine(LOSING_MESSAGE);
+
+    this->currentLives--;
+
+    if(this->currentLives <= 0){
+        PrintLine(TEXT("You lost! Press any key to restart!"));
+    }else{
+        PrintLine(TEXT("Word is incorrect, you have 3 bulls and 4 cows"));
+    }
 }
 //______________||
 
-void UBullCowCartridge::BeginPlay() // When the game starts
-{
-    Super::BeginPlay();
-
-    int RandomNumber = FMath::RandRange(0, ListOfWords.Num() - 1);
-    FString RandomWord = ListOfWords[RandomNumber];
+void UBullCowCartridge::InitGame(){
+    int RandomNumber = FMath::RandRange(0, this->ListOfWords.Num() - 1);
+    FString RandomWord = this->ListOfWords[RandomNumber];
+    
     this->HiddenWord = RandomWord;
+    this->currentLives = LIVE_AMOUNT;
 
+    ClearScreen();
     PrintLine(TEXT("Welcome to the Bull Cows game!"));
     PrintLine(TEXT("The hidden word is " + FString::FromInt(RandomWord.Len()) + " letters long!"));
     PrintLine(TEXT("Insert your message: "));
 }
 
+void UBullCowCartridge::BeginPlay() // When the game starts
+{
+    Super::BeginPlay();
+    this->InitGame();
+}
+
 void UBullCowCartridge::OnInput(const FString& Input) // When the player hits enter
 {
+    if(this->currentLives <= 0){
+        this->InitGame();
+        return;
+    }
+
     ClearScreen();
 
     if(Input == HiddenWord)

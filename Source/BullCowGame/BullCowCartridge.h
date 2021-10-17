@@ -17,7 +17,10 @@ class BULLCOWGAME_API UBullCowCartridge : public UCartridge
 
 	// Your declarations go below!
 	private:
+		int32 currentLives;
+		const TArray<FString> ListOfWords{"cake", "pen", "red", "black", "water"};
 		FString HiddenWord;
+		void InitGame();
 		void WinningMessage();
 		void LosingMessage();
 };
