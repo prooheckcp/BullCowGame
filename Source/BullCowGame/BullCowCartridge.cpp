@@ -49,11 +49,18 @@ void UBullCowCartridge::OnInput(const FString& Input) // When the player hits en
         return;
     }
 
+    int32 InputWordLength = Input.Len();
+
     ClearScreen();
+
 
     if(Input == HiddenWord)
         this->WinningMessage();
-    else
-        this->LosingMessage();
+    else{
+        if(InputWordLength == HiddenWord.Len())
+            this->LosingMessage();
+        else
+            PrintLine(TEXT("The hidden word is " + FString::FromInt(HiddenWord.Len()) + " characters long!"));
+    }
 
 }
